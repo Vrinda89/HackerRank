@@ -1,0 +1,55 @@
+/**
+Java SHA-256
+
+Input Format
+A single alphanumeric string denoting s.
+
+Output Format
+Print the SHA-256 encryption value of s on a new line.
+**/
+
+
+
+
+
+import java.io.*;
+import java.util.*;
+import java.text.*;
+import java.math.*;
+import java.util.regex.*;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+public class Solution {
+
+    public static void main(String[] args) {
+        /* Enter your code here. Read input from STDIN. Print output to STDOUT. Your class should be named Solution. */
+        
+        Scanner scanner = new Scanner(System.in);
+        String input = scanner.nextLine();
+
+        String hashKey= "SHA-256";
+        try{
+        MessageDigest messageDigest=  MessageDigest.getInstance(hashKey);
+        byte[] md = messageDigest.digest(input.getBytes());
+
+        /**
+        Convert byte array into signum representation 
+        If the argument passed is greater than zero, then the signum() function will return 1.0.
+If the argument passed is equal to zero, then the signum() function will return 0.
+If the argument passed is less than zero, then the signum() function will return -1.0.
+        **/
+        BigInteger number=  new BigInteger(1,md);
+        // Convert message digest into hex value 
+        String hash= number.toString(16) ;
+        while(hash.length() < 32){
+                hash = "0"+ hash;
+        }
+        System.out.println(hash);
+        }
+       catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+    }
+}
+
+
